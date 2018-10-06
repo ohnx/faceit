@@ -15,10 +15,7 @@ from pathlib import Path
 import sys
 
 sys.path.append('faceswap/')
-from lib.cli import FullHelpArgumentParser
-from scripts.extract import Extract
-from scripts.train import Train
-from scripts.convert import Convert
+import lib.cli as cli
 from lib.faces_detect import detect_faces
 from plugins.PluginLoader import PluginLoader
 from lib.FaceFilter import FaceFilter
@@ -298,13 +295,13 @@ class FaceIt:
 
 class FaceSwapInterface:
     def __init__(self):
-        self._parser = FullHelpArgumentParser()
+        self._parser = cli.FullHelpArgumentParser()
         self._subparser = self._parser.add_subparsers()
 
     def extract(self, input_dir, output_dir, filter_path):
-        extract = ExtractTrainingData(
+        extract = cli.ExtractArgs(
             self._subparser, "extract", "Extract the faces from a pictures.")
-        args_str = "extract --input-dir {} --output-dir {} --processes 1 --detector cnn --filter {}"
+        args_str = "extract --input-dir {} --output-dir {} --detector dlib-cnn --filter {}"
         args_str = args_str.format(input_dir, output_dir, filter_path)
         self._run_script(args_str)
 
@@ -312,7 +309,7 @@ class FaceSwapInterface:
         model_type = "Original"
         if gan:
             model_type = "GAN"
-        train = TrainingProcessor(
+        train = cli.TrainArgs(
             self._subparser, "train", "This command trains the model for the two faces A and B.")
         args_str = "train --input-A {} --input-B {} --model-dir {} --trainer {} --batch-size {} --write-image"
         args_str = args_str.format(input_a_dir, input_b_dir, model_dir, model_type, 512)
