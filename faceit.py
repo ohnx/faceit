@@ -13,12 +13,12 @@ from moviepy.editor import AudioFileClip, clips_array, TextClip, CompositeVideoC
 import shutil
 from pathlib import Path
 import sys
-sys.path.append('faceswap')
 
-from lib.utils import FullHelpArgumentParser
-from scripts.extract import ExtractTrainingData
-from scripts.train import TrainingProcessor
-from scripts.convert import ConvertImage
+sys.path.append('faceswap/')
+from lib.cli import FullHelpArgumentParser
+from scripts.extract import Extract
+from scripts.train import Train
+from scripts.convert import Convert
 from lib.faces_detect import detect_faces
 from plugins.PluginLoader import PluginLoader
 from lib.FaceFilter import FaceFilter

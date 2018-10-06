@@ -11,7 +11,7 @@ numpy==1.14.0
 tqdm
 pydot
 graphviz
-
+requests
 
 # Required but installed using other means.
 #
